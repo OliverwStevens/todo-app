@@ -28,4 +28,13 @@ export default defineConfig(async () => ({
       ignored: ["**/src-tauri/**"],
     },
   },
+  test: {
+    globals: true, // Enables global `describe`, `it`, `expect` (avoids imports)
+    environment: 'jsdom', // Simulates a browser DOM
+    setupFiles: ['./src/tests/setupTests.js'], // Optional: For global test setup (e.g., mocks)
+    coverage: {
+      enabled: true,
+      reporter: ['text', 'html'], // Generates coverage reports
+    },
+  },
 }));
