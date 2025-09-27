@@ -1,69 +1,104 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
+import { create,readFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
+import { appLocalDataDir } from "@tauri-apps/api/path";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      greetMsg: ''
+      name: "",
+      greetMsg: "",
+      fileMsg: "",
+      appDataDir: ""
     };
-    // Bind methods to preserve 'this' context
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.greet = this.greet.bind(this);
+    this.handleManageFile = this.handleManageFile.bind(this);
   }
 
-  // Handle input changes (like Rails form helpers)
+  async componentDidMount() {
+    try {
+      const dir = await appLocalDataDir();
+      this.setState({ appDataDir: dir });
+      console.log("App data directory:", dir);
+    } catch (err) {
+      console.error("Failed to get app data directory:", err);
+    }
+  }
+
   handleInputChange(event) {
     this.setState({ name: event.currentTarget.value });
   }
 
-  // Handle form submission
-  handleSubmit(event) {
-    event.preventDefault();
-    this.greet();
-  }
-
-  // Call Rust command (MVC: Controller action)
   async greet() {
     try {
-      const message = await invoke("greet", { 
-        name: this.state.name 
-      });
+      const message = await invoke("greet", { name: this.state.name });
       this.setState({ greetMsg: message });
-    } catch (error) {
-      console.error('Greeting failed:', error);
-      this.setState({ greetMsg: 'Error: Could not greet' });
+    } catch (err) {
+      console.error("Greet error:", err);
+      this.setState({ greetMsg: "Error greeting" });
     }
+  }
+
+  async writeFile() {
+    try {
+
+      const file = await create('bar.txt', { baseDir: BaseDirectory.AppData });
+      await file.write(new TextEncoder().encode('Hello world'));
+      await file.close();
+      console.log('It worked')
+      this.setState({ fileMsg: "File written successfully" });
+    } catch (err) {
+      console.error("Write error:", err);
+      this.setState({ fileMsg: `Write failed: ${err}` });
+    }
+  }
+
+  async readFile() {
+    try {
+      const content = await readFile('bar.txt', {
+        baseDir: BaseDirectory.AppData,
+      });
+      const text = new TextDecoder('utf-8').decode(content);
+      console.log(text, 'hi');
+      this.setState({ fileMsg: `File content: ${text}` });
+    } catch (err) {
+      console.error("Read error:", err);
+      this.setState({ fileMsg: `Read failed: ${err}` });
+    }
+  }
+
+  async manageFile() {
+    try {
+      const appDataDir = await appLocalDataDir();
+      await mkdir(appDataDir, { recursive: true });
+      await this.writeFile();
+      await this.readFile();
+    } catch (err) {
+      console.error("Manage file error:", err);
+      this.setState({ fileMsg: `File management failed: ${err}` });
+    }
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    await this.greet();
+  }
+
+  async handleManageFile(event) {
+    event.preventDefault();
+    await this.manageFile();
   }
 
   render() {
     return (
       <main className="container">
         <h1>Welcome to Tauri + React</h1>
-
-        <div className="row">
-          <a href="https://vite.dev" target="_blank">
-            <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-          </a>
-          <a href="https://tauri.app" target="_blank">
-            <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-          </a>
-          <a href="https://react.dev" target="_blank">
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </a>
-        </div>
-        <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-        <form
-          className="row"
-          onSubmit={this.handleSubmit}
-        >
+        <form onSubmit={this.handleSubmit}>
           <input
-            id="greet-input"
             type="text"
             value={this.state.name}
             onChange={this.handleInputChange}
@@ -71,10 +106,10 @@ export default class App extends Component {
           />
           <button type="submit">Greet</button>
         </form>
-        
-        {this.state.greetMsg && (
-          <p>{this.state.greetMsg}</p>
-        )}
+        {this.state.greetMsg && <p>{this.state.greetMsg}</p>}
+        <button onClick={this.handleManageFile}>Manage Test File</button>
+        {this.state.appDataDir && <p>App Data Directory: {this.state.appDataDir}</p>}
+        {this.state.fileMsg && <p>{this.state.fileMsg}</p>}
       </main>
     );
   }
