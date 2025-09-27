@@ -127,7 +127,17 @@ export default class App extends Component {
           </div>
         </header>
         <div className="todo-panel">
-          hi
+          <div className="todo">
+            hi
+          </div>
+
+          <div className="todo">
+            hi
+          </div>
+
+          <div className="todo">
+            hi
+          </div>
         </div>
 
         <div className="todo-form">
