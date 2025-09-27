@@ -1,4 +1,18 @@
 @import '@rolemodel/optics/dist/css/optics';
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr .25fr;
+  height: 100vh;
+}
 .content-header {
+  background-color: red;
   padding: var(--op-space-large);
+}
+.todo-panel {
+  background-color: blue;
+  height: auto;
+}
+
+.todo-form {
+  background-color: pink;
 }

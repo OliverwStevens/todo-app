@@ -112,7 +112,7 @@ export default class App extends Component {
       //   {this.state.fileMsg && <p>{this.state.fileMsg}</p>}
       // </main>
 
-      <main>
+      <main className="app">
         <header className="content-header">
           <div className="content-header__details">
             
@@ -121,11 +121,18 @@ export default class App extends Component {
           </div>
           <div className="content-header__aside">
             <button className="btn btn--primary btn--icon">
-              <span class="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
+              <span className="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
             </button>
             <button className="btn">Action 2</button>
           </div>
         </header>
+        <div className="todo-panel">
+          hi
+        </div>
+
+        <div className="todo-form">
+          bye
+        </div>
 
 
       </main>
