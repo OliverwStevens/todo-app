@@ -113,7 +113,21 @@ export default class App extends Component {
       // </main>
 
       <main>
-        <h1>Workplace</h1>
+        <header className="content-header">
+          <div className="content-header__details">
+            
+            <h1 className="content-header__title">Workplace</h1>
+            
+          </div>
+          <div className="content-header__aside">
+            <button className="btn btn--primary btn--icon">
+              <span class="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
+            </button>
+            <button className="btn">Action 2</button>
+          </div>
+        </header>
+
+
       </main>
     );
   }
