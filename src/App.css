@@ -29,6 +29,9 @@
 
 .todo-form {
   background-color: pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .todo {
@@ -41,4 +44,13 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--op-space-large);
+
+  input {
+    background-color: transparent;
+    border: none;
+    border-radius: var(--op-radius-medium);
+    box-shadow: var(--op-border-all) var(--op-color-border);
+    height: calc(10 * var(--op-size-unit));
+    width: calc(100 * var(--op-size-unit));;
+  }
 }
