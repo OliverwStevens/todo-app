@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
+import "./CheckBox.css";
 import { create,readFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
 import { appLocalDataDir } from "@tauri-apps/api/path";
 
@@ -127,17 +128,27 @@ export default class App extends Component {
           </div>
         </header>
         <div className="todo-panel">
-          <div className="todo">
-            hi
+          <div className="todo-panel__content">
+
+            <div className="todo">
+            <div className="checkbox-wrapper">
+              <input className="inp-cbx" id="cbx" type="checkbox" style={{ display: 'none' }} />
+              <label className="cbx" htmlFor="cbx">
+                <span>
+                  <svg width="12px" height="9px" viewBox="0 0 12 9">
+                    <polyline points="1 5 4 8 11 1" />
+                  </svg>
+                </span>
+                <span>To-do aoiwj w waiofj ewj waeifj owfjew iowae jfio</span>
+              </label>
+            </div>
+              <button className="btn btn--primary btn--icon">
+                <span className="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
+              </button>
+            </div>
           </div>
 
-          <div className="todo">
-            hi
-          </div>
-
-          <div className="todo">
-            hi
-          </div>
+         
         </div>
 
         <div className="todo-form">
