@@ -95,21 +95,25 @@ export default class App extends Component {
 
   render() {
     return (
-      <main className="container">
-        <h1>Welcome to Tauri + React</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={this.state.name}
-            onChange={this.handleInputChange}
-            placeholder="Enter a name..."
-          />
-          <button type="submit">Greet</button>
-        </form>
-        {this.state.greetMsg && <p>{this.state.greetMsg}</p>}
-        <button onClick={this.handleManageFile}>Manage Test File</button>
-        {this.state.appDataDir && <p>App Data Directory: {this.state.appDataDir}</p>}
-        {this.state.fileMsg && <p>{this.state.fileMsg}</p>}
+      // <main className="container">
+      //   <h1>Welcome to Tauri + React</h1>
+      //   <form onSubmit={this.handleSubmit}>
+      //     <input
+      //       type="text"
+      //       value={this.state.name}
+      //       onChange={this.handleInputChange}
+      //       placeholder="Enter a name..."
+      //     />
+      //     <button type="submit">Greet</button>
+      //   </form>
+      //   {this.state.greetMsg && <p>{this.state.greetMsg}</p>}
+      //   <button onClick={this.handleManageFile}>Manage Test File</button>
+      //   {this.state.appDataDir && <p>App Data Directory: {this.state.appDataDir}</p>}
+      //   {this.state.fileMsg && <p>{this.state.fileMsg}</p>}
+      // </main>
+
+      <main>
+        <h1>Workplace</h1>
       </main>
     );
   }
