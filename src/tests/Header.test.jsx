@@ -1,10 +1,10 @@
 // src/tests/App.test.jsx
 import { render, screen } from '@testing-library/react';
-import App from '../App';
+import Header from '../Header';
 import '@testing-library/jest-dom';
-describe('App', () => {
-  it('show the welcome text', () => {
-    render(<App/>)
+describe('Header', () => {
+  it('shows the category', () => {
+    render(<Header/>)
     expect(screen.getByText('Workplace')).toBeInTheDocument()
   })
 })

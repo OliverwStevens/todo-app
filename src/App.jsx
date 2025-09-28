@@ -3,6 +3,9 @@ import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 import "./CheckBox.css";
+
+import Header from "./Header.jsx";
+
 import { create, readFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
 import { appLocalDataDir } from "@tauri-apps/api/path";
 
@@ -114,19 +117,7 @@ export default class App extends Component {
       // </main>
 
       <main className="app">
-        <header className="content-header">
-          <div className="content-header__details">
-
-            <h1 className="content-header__title">Workplace</h1>
-
-          </div>
-          <div className="content-header__aside">
-            <button className="btn btn--primary btn--icon">
-              <span className="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
-            </button>
-            <button className="btn">Action 2</button>
-          </div>
-        </header>
+       <Header/>
         <div className="todo-panel">
           <div className="todo-panel__content">
 
