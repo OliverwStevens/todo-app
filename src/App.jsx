@@ -117,7 +117,7 @@ export default class App extends Component {
       // </main>
 
       <main className="app">
-       <Header/>
+       <Header title="Workplace"/>
         <div className="todo-panel">
           <div className="todo-panel__content">
 
