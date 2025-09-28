@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import GlobalContext from "./GlobalContext";
+import CategoryBtn from "./CategoryBtn";
 export default class TodoForm extends Component {
   constructor(props) {
     super(props);
@@ -25,9 +26,7 @@ export default class TodoForm extends Component {
       <form className="todo-form" data-testid="todo-form">
           <div className="todo">
             <input placeholder="Add todo..." autoFocus/>
-            <button type="button" className="btn btn--primary btn--icon" onClick={this.changeCategory.bind(this)} data-testid="category-btn">
-              <span className="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
-            </button>
+            <CategoryBtn/>
           </div>
         </form>
     )

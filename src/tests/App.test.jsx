@@ -16,7 +16,7 @@ describe('App', () => {
 
     render(<App/>)
     expect(screen.getByText('Workplace')).toBeInTheDocument()
-    const btn = screen.getByTestId('category-btn')
+    const btn = screen.getAllByTestId('category-btn')[0]
     await user.click(btn)
     expect(screen.getByText('Home')).toBeInTheDocument()
 

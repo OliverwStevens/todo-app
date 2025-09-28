@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import "./CheckBox.css";
+import CategoryBtn from "./CategoryBtn";
 
 export default class Header extends Component {
   constructor(props) {
@@ -19,9 +20,7 @@ export default class Header extends Component {
 
           </div>
           <div className="content-header__aside">
-            <button className="btn btn--primary btn--icon">
-              <span className="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
-            </button>
+            <CategoryBtn/>
             <button className="btn">Clear Complete</button>
           </div>
         </header>
