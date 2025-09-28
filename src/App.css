@@ -49,8 +49,10 @@
     background-color: transparent;
     border: none;
     border-radius: var(--op-radius-medium);
-    box-shadow: var(--op-border-all) var(--op-color-border);
     height: calc(10 * var(--op-size-unit));
     width: calc(100 * var(--op-size-unit));;
+  }
+  input:focus {
+    outline: none;
   }
 }
