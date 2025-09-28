@@ -8,6 +8,7 @@ import Header from "./Header.jsx";
 
 import { create, readFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
 import { appLocalDataDir } from "@tauri-apps/api/path";
+import TodoForm from "./TodoForm.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -142,14 +143,7 @@ export default class App extends Component {
 
         </div>
 
-        <div className="todo-form">
-          <div className="todo">
-            <input placeholder="Add todo..." autoFocus/>
-            <button className="btn btn--primary btn--icon">
-              <span className="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
-            </button>
-          </div>
-        </div>
+        <TodoForm/>
 
 
       </main>
