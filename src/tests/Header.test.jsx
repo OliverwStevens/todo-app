@@ -1,22 +1,35 @@
 // src/tests/App.test.jsx
 import { render, screen } from '@testing-library/react';
 import Header from '../Header';
+import GlobalContext from '../GlobalContext';
 import '@testing-library/jest-dom';
-describe('Header', () => {
-  it('shows the category Workplace', () => {
-    const category = "Workplace"
-    render(<Header  category={category}/>)
-    expect(screen.getByText(category)).toBeInTheDocument()
-  })
+import { vi } from 'vitest';
 
-  it('shows the category Home', () => {
-    const category = "Home"
-    render(<Header  category={category}/>)
-    expect(screen.getByText(category)).toBeInTheDocument()
-  })
+describe('Header', () => {
+  it('shows the category Workplace via context', () => {
+    render(
+      <GlobalContext.Provider value={{ category: "Workplace", toggleGlobalState: vi.fn() }}>
+        <Header />
+      </GlobalContext.Provider>
+    );
+    expect(screen.getByText("Workplace")).toBeInTheDocument();
+  });
+
+  it('shows the category Home via context', () => {
+    render(
+      <GlobalContext.Provider value={{ category: "Home", toggleGlobalState: vi.fn() }}>
+        <Header />
+      </GlobalContext.Provider>
+    );
+    expect(screen.getByText("Home")).toBeInTheDocument();
+  });
 
   it('shows the clear button', () => {
-    render(<Header category="Workplace"/>)
-    expect(screen.getByText('Clear Complete')).toBeInTheDocument()
-  })
-})
+    render(
+      <GlobalContext.Provider value={{ category: "Workplace", toggleGlobalState: vi.fn() }}>
+        <Header />
+      </GlobalContext.Provider>
+    );
+    expect(screen.getByText('Clear Complete')).toBeInTheDocument();
+  });
+});
