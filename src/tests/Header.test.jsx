@@ -4,19 +4,19 @@ import Header from '../Header';
 import '@testing-library/jest-dom';
 describe('Header', () => {
   it('shows the category Workplace', () => {
-    const title = "Workplace"
-    render(<Header  title={title}/>)
-    expect(screen.getByText(title)).toBeInTheDocument()
+    const category = "Workplace"
+    render(<Header  category={category}/>)
+    expect(screen.getByText(category)).toBeInTheDocument()
   })
 
   it('shows the category Home', () => {
-    const title = "Home"
-    render(<Header  title={title}/>)
-    expect(screen.getByText(title)).toBeInTheDocument()
+    const category = "Home"
+    render(<Header  category={category}/>)
+    expect(screen.getByText(category)).toBeInTheDocument()
   })
 
   it('shows the clear button', () => {
-    render(<Header title="Workplace"/>)
+    render(<Header category="Workplace"/>)
     expect(screen.getByText('Clear Complete')).toBeInTheDocument()
   })
 })

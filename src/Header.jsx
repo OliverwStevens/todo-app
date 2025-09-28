@@ -15,7 +15,7 @@ export default class Header extends Component {
       <header className="content-header">
           <div className="content-header__details">
 
-            <h1 className="content-header__title">{this.props.title}</h1>
+            <h1 className="content-header__title">{this.props.category}</h1>
 
           </div>
           <div className="content-header__aside">

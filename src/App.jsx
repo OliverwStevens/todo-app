@@ -9,6 +9,9 @@ import Header from "./Header.jsx";
 import { create, readFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
 import { appLocalDataDir } from "@tauri-apps/api/path";
 import TodoForm from "./TodoForm.jsx";
+import GlobalContext from "./GlobalContext";
+
+
 
 export default class App extends Component {
   constructor(props) {
@@ -17,12 +20,20 @@ export default class App extends Component {
       name: "",
       greetMsg: "",
       fileMsg: "",
-      appDataDir: ""
+      appDataDir: "",
+      category: 'Workplace'
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleManageFile = this.handleManageFile.bind(this);
   }
+
+  toggleGlobalState = () => {
+    this.setState(prev => ({
+      category: prev.category === 'Workplace' ? 'Home' : 'Workplace'
+    }));
+  };
+  
 
   async componentDidMount() {
     try {
@@ -98,6 +109,10 @@ export default class App extends Component {
     await this.manageFile();
   }
 
+  changeCategory() {
+    
+  }
+
   render() {
     return (
       // <main className="container">
@@ -117,8 +132,12 @@ export default class App extends Component {
       //   {this.state.fileMsg && <p>{this.state.fileMsg}</p>}
       // </main>
 
-      <main className="app">
-       <Header title="Workplace"/>
+      <GlobalContext.Provider value={{
+        category: this.state.category,
+        toggleGlobalState: this.toggleGlobalState
+      }}>
+        <main className="app">
+       <Header category={this.state.category}/>
         <div className="todo-panel">
           <div className="todo-panel__content">
 
@@ -143,10 +162,11 @@ export default class App extends Component {
 
         </div>
 
-        <TodoForm/>
+        <TodoForm category={this.state.category}/>
 
 
       </main>
+      </GlobalContext.Provider>
     );
   }
 }
