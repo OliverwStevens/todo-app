@@ -14,4 +14,9 @@ describe('Header', () => {
     render(<Header  title={title}/>)
     expect(screen.getByText(title)).toBeInTheDocument()
   })
+
+  it('shows the clear button', () => {
+    render(<Header title="Workplace"/>)
+    expect(screen.getByText('Clear Complete')).toBeInTheDocument()
+  })
 })

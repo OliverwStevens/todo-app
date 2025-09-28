@@ -22,7 +22,7 @@ export default class Header extends Component {
             <button className="btn btn--primary btn--icon">
               <span className="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
             </button>
-            <button className="btn">Action 2</button>
+            <button className="btn">Clear Complete</button>
           </div>
         </header>
     )
