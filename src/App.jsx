@@ -23,9 +23,6 @@ export default class App extends Component {
       appDataDir: "",
       category: 'Workplace'
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleManageFile = this.handleManageFile.bind(this);
   }
 
   toggleGlobalState = () => {
@@ -34,20 +31,6 @@ export default class App extends Component {
     }));
   };
   
-
-  async componentDidMount() {
-    try {
-      const dir = await appLocalDataDir();
-      this.setState({ appDataDir: dir });
-      console.log("App data directory:", dir);
-    } catch (err) {
-      console.error("Failed to get app data directory:", err);
-    }
-  }
-
-  handleInputChange(event) {
-    this.setState({ name: event.currentTarget.value });
-  }
 
   async greet() {
     try {
@@ -59,78 +42,13 @@ export default class App extends Component {
     }
   }
 
-  async writeFile() {
-    try {
-
-      const file = await create('bar.txt', { baseDir: BaseDirectory.AppData });
-      await file.write(new TextEncoder().encode('Hello world'));
-      await file.close();
-      console.log('It worked')
-      this.setState({ fileMsg: "File written successfully" });
-    } catch (err) {
-      console.error("Write error:", err);
-      this.setState({ fileMsg: `Write failed: ${err}` });
-    }
-  }
-
-  async readFile() {
-    try {
-      const content = await readFile('bar.txt', {
-        baseDir: BaseDirectory.AppData,
-      });
-      const text = new TextDecoder('utf-8').decode(content);
-      console.log(text, 'hi');
-      this.setState({ fileMsg: `File content: ${text}` });
-    } catch (err) {
-      console.error("Read error:", err);
-      this.setState({ fileMsg: `Read failed: ${err}` });
-    }
-  }
-
-  async manageFile() {
-    try {
-      const appDataDir = await appLocalDataDir();
-      await mkdir(appDataDir, { recursive: true });
-      await this.writeFile();
-      await this.readFile();
-    } catch (err) {
-      console.error("Manage file error:", err);
-      this.setState({ fileMsg: `File management failed: ${err}` });
-    }
-  }
-
-  async handleSubmit(event) {
-    event.preventDefault();
-    await this.greet();
-  }
-
-  async handleManageFile(event) {
-    event.preventDefault();
-    await this.manageFile();
-  }
-
   changeCategory() {
     
   }
 
   render() {
     return (
-      // <main className="container">
-      //   <h1>Welcome to Tauri + React</h1>
-      //   <form onSubmit={this.handleSubmit}>
-      //     <input
-      //       type="text"
-      //       value={this.state.name}
-      //       onChange={this.handleInputChange}
-      //       placeholder="Enter a name..."
-      //     />
-      //     <button type="submit">Greet</button>
-      //   </form>
-      //   {this.state.greetMsg && <p>{this.state.greetMsg}</p>}
-      //   <button onClick={this.handleManageFile}>Manage Test File</button>
-      //   {this.state.appDataDir && <p>App Data Directory: {this.state.appDataDir}</p>}
-      //   {this.state.fileMsg && <p>{this.state.fileMsg}</p>}
-      // </main>
+
 
       <GlobalContext.Provider value={{
         category: this.state.category,
