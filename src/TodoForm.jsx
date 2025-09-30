@@ -13,7 +13,7 @@ export default class TodoForm extends Component {
 
   textChangeHandler(event) {
     this.setState({
-      formData: { id: 1, text: event.target.value, category: '' }
+      formData: { id: 1, text: event.target.value, complete: false, category: '' }
     })
   }
 
