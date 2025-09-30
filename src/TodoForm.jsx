@@ -2,36 +2,59 @@ import React, { Component } from "react"
 import "./App.css"
 import CategoryBtn from "./CategoryBtn"
 import FileService from "./utils/fileService"
+import { v4 as uuidv4 } from "uuid"
 
 export default class TodoForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      formData: { id: 1, text: '', complete: false, category: '' }
+      formData: { id: "", text: "", complete: false, category: "" }
     }
   }
 
-  textChangeHandler(event) {
-    this.setState({
-      formData: { id: 1, text: event.target.value, complete: false, category: '' }
-    })
+  textChangeHandler = (event) => {
+    this.setState(prevState => ({
+      formData: {
+        ...prevState.formData,
+        text: event.target.value
+      }
+    }))
   }
 
-  async saveData() {
-    await FileService.saveData(this.state.formData)
+  categoryChangeHandler = (category) => {
+    this.setState(prevState => ({
+      formData: {
+        ...prevState.formData,
+        category
+      }
+    }))
   }
-  
+
+  saveData = async () => {
+    const newTodo = {
+      ...this.state.formData,
+      id: uuidv4(),
+      complete: false
+    }
+
+    await FileService.saveData(newTodo)
+
+    // Reset the form
+    this.setState({ formData: { id: "", text: "", complete: false, category: "" } })
+  }
+
   render() {
     return (
-      <form className="todo-form" data-testid="todo-form">
+      <form className="todo-form" data-testid="todo-form" onSubmit={(e) => e.preventDefault()}>
         <div className="todo">
           <input
             placeholder="Add todo..."
             autoFocus
-            onChange={this.textChangeHandler.bind(this)}
+            value={this.state.formData.text}
+            onChange={this.textChangeHandler}
           />
-          <CategoryBtn />
-          <button type="button" onClick={this.saveData.bind(this)}>Submit</button>
+          <CategoryBtn onSelect={this.categoryChangeHandler} />
+          <button type="button" onClick={this.saveData}>Submit</button>
         </div>
       </form>
     )

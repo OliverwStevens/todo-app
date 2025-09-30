@@ -10,6 +10,7 @@ import { create, readFile, mkdir, BaseDirectory } from '@tauri-apps/plugin-fs';
 import { appLocalDataDir } from "@tauri-apps/api/path";
 import TodoForm from "./TodoForm.jsx";
 import GlobalContext from "./GlobalContext";
+import TodoPanel from "./TodoPanel.jsx";
 
 
 
@@ -56,29 +57,7 @@ export default class App extends Component {
       }}>
         <main className="app">
        <Header category={this.state.category}/>
-        <div className="todo-panel">
-          <div className="todo-panel__content">
-
-            <div className="todo">
-              <div className="checkbox-wrapper">
-                <input className="inp-cbx" id="cbx" type="checkbox" style={{ display: 'none' }} />
-                <label className="cbx" htmlFor="cbx">
-                  <span>
-                    <svg width="12px" height="9px" viewBox="0 0 12 9">
-                      <polyline points="1 5 4 8 11 1" />
-                    </svg>
-                  </span>
-                  <span>To-do aoiwj w waiofj ewj waeifj owfjew iowae jfio</span>
-                </label>
-              </div>
-              <button className="btn btn--primary btn--icon">
-                <span className="material-symbols-outlined icon--high-emphasis icon icon--x-large">domain</span>
-              </button>
-            </div>
-          </div>
-
-
-        </div>
+        <TodoPanel/>
 
         <TodoForm category={this.state.category}/>
 

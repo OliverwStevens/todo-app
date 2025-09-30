@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest"
-import FileService from "../utils/FileService"
+import FileService from "../utils/fileService"
 import { create, readFile, mkdir } from "@tauri-apps/plugin-fs"
 
 // Mock tauri APIs

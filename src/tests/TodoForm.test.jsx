@@ -1,17 +1,15 @@
-// src/tests/App.test.jsx
 import { render, screen, fireEvent } from "@testing-library/react"
 import TodoForm from "../TodoForm"
 import GlobalContext from "../GlobalContext"
 import "@testing-library/jest-dom"
 import { vi } from "vitest"
-import FileService from "../utils/FileService"
-vi.mock("../utils/fileService", () => {
-  return {
-    default: {
-      saveData: vi.fn().mockResolvedValue(undefined),
-    },
-  }
-})
+import FileService from "../utils/fileService"
+
+vi.mock("../utils/fileService", () => ({
+  default: {
+    saveData: vi.fn().mockResolvedValue(undefined),
+  },
+}))
 
 describe("TodoForm", () => {
   it("shows the todo form", () => {
@@ -39,12 +37,13 @@ describe("TodoForm", () => {
     const button = screen.getByText("Submit")
     fireEvent.click(button)
 
-    // Assert saveData was called with correct data
-    expect(FileService.saveData).toHaveBeenCalledWith({
-      id: 1,
-      text: "Finish testing",
-      complete: false,
-      category: "", // matches your component state
-    })
+    // Grab the argument FileService.saveData was called with
+    const callArg = FileService.saveData.mock.calls[0][0]
+
+    // Assert all fields except id
+    expect(callArg.text).toBe("Finish testing")
+    expect(callArg.complete).toBe(false)
+    expect(callArg.category).toBe("")
+    expect(callArg.id).toBeTruthy() // UUID exists
   })
 })
