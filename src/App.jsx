@@ -18,7 +18,6 @@ export default class App extends Component {
 
   async componentDidMount() {
     const data = await FileService.readData();
-    console.log(data)
     this.setState({ todos: data });
   }
 
