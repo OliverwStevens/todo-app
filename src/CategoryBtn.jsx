@@ -5,6 +5,7 @@ export default class CategoryBtn extends Component {
   static contextType = GlobalContext;
 
   handleClick = () => {
+    console.log("the context???", this.context.toggleGlobalState)
     this.context.toggleGlobalState();
   }
 

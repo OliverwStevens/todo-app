@@ -1,4 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest"
+vi.unmock('../utils/fileService');
+
 import FileService from "../utils/fileService"
 import { create, readFile, mkdir } from "@tauri-apps/plugin-fs"
 

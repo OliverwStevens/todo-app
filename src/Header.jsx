@@ -9,7 +9,7 @@ export default class Header extends Component {
 
   render() {
     const { category } = this.context;
-
+    console.log('Bro oliver,', category)
     return (
       <header className="content-header">
         <div className="content-header__details">

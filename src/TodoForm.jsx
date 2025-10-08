@@ -1,15 +1,14 @@
-import React, { Component } from "react"
-import "./App.css"
-import CategoryBtn from "./CategoryBtn"
-import FileService from "./utils/fileService"
-import { v4 as uuidv4 } from "uuid"
+import React, { Component } from "react";
+import "./App.css";
+import CategoryBtn from "./CategoryBtn";
+import { v4 as uuidv4 } from "uuid";
 
 export default class TodoForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       formData: { id: "", text: "", complete: false, category: "" }
-    }
+    };
   }
 
   textChangeHandler = (event) => {
@@ -18,8 +17,8 @@ export default class TodoForm extends Component {
         ...prevState.formData,
         text: event.target.value
       }
-    }))
-  }
+    }));
+  };
 
   categoryChangeHandler = (category) => {
     this.setState(prevState => ({
@@ -34,18 +33,27 @@ export default class TodoForm extends Component {
     const newTodo = {
       ...this.state.formData,
       id: uuidv4(),
-      complete: false
+      complete: false,
+      category: this.props.category || this.state.formData.category
     }
 
-    await FileService.saveData(newTodo)
+    if (this.props.onAddTodo) {
+      await this.props.onAddTodo(newTodo);
+    }
 
     // Reset the form
-    this.setState({ formData: { id: "", text: "", complete: false, category: "" } })
+    this.setState({
+      formData: { id: "", text: "", complete: false, category: "" }
+    })
   }
 
   render() {
     return (
-      <form className="todo-form" data-testid="todo-form" onSubmit={(e) => e.preventDefault()}>
+      <form
+        className="todo-form"
+        data-testid="todo-form"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <div className="todo">
           <input
             placeholder="Add todo..."
@@ -54,9 +62,11 @@ export default class TodoForm extends Component {
             onChange={this.textChangeHandler}
           />
           <CategoryBtn onSelect={this.categoryChangeHandler} />
-          <button type="button" onClick={this.saveData}>Submit</button>
+          <button type="button" onClick={this.saveData}>
+            Submit
+          </button>
         </div>
       </form>
-    )
+    );
   }
 }
