@@ -31,7 +31,13 @@ export default class App extends Component {
     await FileService.addTodo(todo);   // Save once
     const updated = await FileService.readData(); // Reload todos
     this.setState({ todos: updated });
-  };
+  }
+
+  handledUpdateTodo = async (todo) => {
+    await FileService.updateData(todo)
+    const updated = await FileService.readData()
+    this.setState({ todos: updated });
+  }
   
 
   render() {
@@ -45,7 +51,7 @@ export default class App extends Component {
         <main className="app">
           <Header />
           {/* Pass todos + category */}
-          <TodoPanel todos={this.state.todos} />
+          <TodoPanel todos={this.state.todos} onUpdateTodoHandler={this.handledUpdateTodo.bind(this)} />
           {/* Give form a callback */}
           <TodoForm category={this.state.category} onAddTodo={this.handleAddTodo.bind(this)} />
         </main>

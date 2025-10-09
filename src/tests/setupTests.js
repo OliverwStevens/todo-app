@@ -5,15 +5,15 @@ import { vi } from 'vitest';
 vi.mock('../utils/fileService', () => ({
   default: {
     readData: vi.fn().mockResolvedValue([]),
-    addTodo: vi.fn().mockResolvedValue(),
+    addTodo: vi.fn(),
+    updateData: vi.fn(),
   }
 }))
 
-// 👇 Optionally reset all mocks before each test
 beforeEach(() => {
-  vi.clearAllMocks();
-});
+  vi.clearAllMocks()
+})
 
 afterEach(() => {
-  cleanup();
-});
+  cleanup()
+})

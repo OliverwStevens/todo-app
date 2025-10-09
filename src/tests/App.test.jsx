@@ -39,5 +39,25 @@ describe('App', () => {
     expect(FileService.addTodo).toHaveBeenCalledTimes(1);
     expect(FileService.addTodo.mock.calls[0][0].text).toBe('Finish testing');
     expect(await screen.findByText('Finish testing')).toBeInTheDocument();
-  });
-});
+  })
+
+  it('lets me update a previous todo', async () => {
+    const user = userEvent.setup()
+  
+    const todo = { id: 1, text: "One", category: "Workplace", complete: false }
+  
+    FileService.readData.mockResolvedValueOnce([todo])
+    render(<App />)
+  
+    expect(await screen.findByText('One')).toBeInTheDocument()
+  
+    const checkboxLabel = screen.getByTestId(`cbx-${todo.id}`)
+    await user.click(checkboxLabel)
+  
+    expect(FileService.updateData).toHaveBeenCalledTimes(1)
+  
+    const updatedTodo = FileService.updateData.mock.calls[0][0]
+    expect(updatedTodo.complete).toBe(true)
+  })
+  
+})
