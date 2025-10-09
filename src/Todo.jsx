@@ -1,12 +1,15 @@
 import React, { Component } from "react"
 import "./App.css"
 import CategoryBtn from "./CategoryBtn"
+import GlobalContext from "./GlobalContext";
 
 export default class Todo extends Component {
 
-  //Oliver: this needs to get updated later, we are not using the global context correctly
+  static contextType = GlobalContext;
+
   changeHandler(event) {
-    this.props.onUpdateTodoHandler({ id: this.props.id, text: this.props.text, complete: event.target.checked, category: "Workplace" }) //Fix Category
+    const { category } = this.context
+    this.props.onUpdateTodoHandler({ id: this.props.id, text: this.props.text, complete: event.target.checked, category: { category} })
   }
   render() {
     return (
@@ -14,9 +17,9 @@ export default class Todo extends Component {
         <div className="checkbox-wrapper">
           <input
             className="inp-cbx"
-            id={`cbx-${this.props.id}`} // make it unique
+            id={`cbx-${this.props.id}`}
             type="checkbox"
-            defaultChecked={this.props.complete} // On change -> trigger update
+            defaultChecked={this.props.complete}
             style={{ display: "none" }}
             onChange={this.changeHandler.bind(this)}
           />
