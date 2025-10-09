@@ -19,10 +19,14 @@ class FileService {
     return existingData
   }
 
-  static async saveData(newItem) {
+  static async addTodo(newItem) {
     const existingData = await FileService.readData()
     existingData.push(newItem)
 
+    await FileService._saveData(existingData)
+  }
+
+  static async _saveData(existingData) {
     const file = await create('data.json', { baseDir: BaseDirectory.AppLocalData })
     await file.write(new TextEncoder().encode(JSON.stringify(existingData, null, 2)))
     await file.close()
@@ -40,9 +44,7 @@ class FileService {
       existingData[index] = newItem
   
       // Write the updated data back to file
-      const file = await create('data.json', { baseDir: BaseDirectory.AppLocalData })
-      await file.write(new TextEncoder().encode(JSON.stringify(existingData, null, 2)))
-      await file.close()
+      await FileService._saveData(existingData)
     } else {
       console.error(`Item with id ${newItem.id} not found`);
     }

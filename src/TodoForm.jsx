@@ -29,7 +29,7 @@ export default class TodoForm extends Component {
     }))
   }
 
-  saveData = async () => {
+  addTodo = async () => {
     const newTodo = {
       ...this.state.formData,
       id: uuidv4(),
@@ -62,7 +62,7 @@ export default class TodoForm extends Component {
             onChange={this.textChangeHandler}
           />
           <CategoryBtn onSelect={this.categoryChangeHandler} />
-          <button type="button" onClick={this.saveData}>
+          <button type="button" onClick={this.addTodo}>
             Submit
           </button>
         </div>

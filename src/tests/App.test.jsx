@@ -36,8 +36,8 @@ describe('App', () => {
     await user.type(input, 'Finish testing');
     await user.click(screen.getByText('Submit'));
 
-    expect(FileService.saveData).toHaveBeenCalledTimes(1);
-    expect(FileService.saveData.mock.calls[0][0].text).toBe('Finish testing');
+    expect(FileService.addTodo).toHaveBeenCalledTimes(1);
+    expect(FileService.addTodo.mock.calls[0][0].text).toBe('Finish testing');
     expect(await screen.findByText('Finish testing')).toBeInTheDocument();
   });
 });

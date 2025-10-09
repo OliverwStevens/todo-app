@@ -16,7 +16,7 @@ describe("TodoForm", () => {
     expect(screen.getByTestId("todo-form")).toBeInTheDocument()
   })
 
-  it("submits a todo and calls FileService.saveData", async () => {
+  it("submits a todo and calls FileService.addTodo", async () => {
     const spy = vi.fn()
     render(
       <GlobalContext.Provider value={{ category: "Workplace", toggleGlobalState: vi.fn() }}>

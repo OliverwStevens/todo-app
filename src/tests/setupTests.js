@@ -5,7 +5,7 @@ import { vi } from 'vitest';
 vi.mock('../utils/fileService', () => ({
   default: {
     readData: vi.fn().mockResolvedValue([]),
-    saveData: vi.fn().mockResolvedValue(),
+    addTodo: vi.fn().mockResolvedValue(),
   }
 }))
 

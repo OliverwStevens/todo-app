@@ -28,7 +28,7 @@ export default class App extends Component {
   };
 
   handleAddTodo = async (todo) => {
-    await FileService.saveData(todo);   // Save once
+    await FileService.addTodo(todo);   // Save once
     const updated = await FileService.readData(); // Reload todos
     this.setState({ todos: updated });
   };

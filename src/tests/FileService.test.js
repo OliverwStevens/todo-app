@@ -46,7 +46,7 @@ describe("FileService", () => {
     expect(data).toEqual([{ id: 1, text: "test" }])
   })
 
-  it("should save data by appending to existing file", async () => {
+  it("should add a todo through appending to existing file", async () => {
     // Mock existing file content
     const existingData = [{ id: 1, text: "old" }]
     readFile.mockResolvedValueOnce(new TextEncoder().encode(JSON.stringify(existingData)))
@@ -57,7 +57,7 @@ describe("FileService", () => {
     create.mockResolvedValueOnce({ write: mockWrite, close: mockClose })
   
     const newItem = { id: 2, text: "new" }
-    await FileService.saveData(newItem)
+    await FileService.addTodo(newItem)
   
     expect(create).toHaveBeenCalledWith("data.json", { baseDir: "mockBaseDir" })
     expect(mockWrite).toHaveBeenCalledTimes(1)
