@@ -11,7 +11,7 @@ export default class Todo extends Component {
             className="inp-cbx"
             id={`cbx-${this.props.id}`} // make it unique
             type="checkbox"
-            defaultChecked={this.props.complete}
+            defaultChecked={this.props.complete} // On change -> trigger update
             style={{ display: "none" }}
           />
           <label className="cbx" htmlFor={`cbx-${this.props.id}`}>

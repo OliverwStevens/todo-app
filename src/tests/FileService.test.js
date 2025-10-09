@@ -72,5 +72,29 @@ describe("FileService", () => {
   
     expect(mockClose).toHaveBeenCalled()
   })
+
+  it('should update the data', async () => {
+    const existingData = [{ id: 1, text: "old" }]
+    readFile.mockResolvedValueOnce(new TextEncoder().encode(JSON.stringify(existingData)))
+
+    const mockWrite = vi.fn()
+    const mockClose = vi.fn()
+    create.mockResolvedValueOnce({ write: mockWrite, close: mockClose })
+  
+    const newItem = { id: 1, text: "new" }
+    await FileService.updateData(newItem)
+  
+    expect(create).toHaveBeenCalledWith("data.json", { baseDir: "mockBaseDir" })
+    expect(mockWrite).toHaveBeenCalledTimes(1)
+  
+    // 🔍 Verify actual content written
+    const writtenArg = mockWrite.mock.calls[0][0]
+    const decoded = new TextDecoder().decode(writtenArg)
+    expect(JSON.parse(decoded)).toEqual([
+      { id: 1, text: "new" }
+    ])
+  
+    expect(mockClose).toHaveBeenCalled()
+  })
   
 })
