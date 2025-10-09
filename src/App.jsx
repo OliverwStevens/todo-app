@@ -45,7 +45,7 @@ export default class App extends Component {
         <main className="app">
           <Header />
           {/* Pass todos + category */}
-          <TodoPanel todos={this.state.todos} category={this.state.category} />
+          <TodoPanel todos={this.state.todos} />
           {/* Give form a callback */}
           <TodoForm category={this.state.category} onAddTodo={this.handleAddTodo.bind(this)} />
         </main>
