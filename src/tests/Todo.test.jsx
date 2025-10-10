@@ -4,7 +4,7 @@ import "@testing-library/jest-dom"
 import { expect, vi } from "vitest"
 import userEvent from '@testing-library/user-event'
 import Todo from "../Todo"
-
+import React from "react"
 
 describe("Todo", async () => {
   it("calls the callback when the checkbox gets changed", async () => {

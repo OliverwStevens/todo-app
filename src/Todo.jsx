@@ -1,16 +1,17 @@
 import React, { Component } from "react"
 import "./App.css"
 import CategoryBtn from "./CategoryBtn"
-import GlobalContext from "./GlobalContext";
-
+import GlobalContext from "./GlobalContext"
+import PropTypes from 'prop-types'
 export default class Todo extends Component {
 
-  static contextType = GlobalContext;
+  static contextType = GlobalContext
 
   changeHandler(event) {
     const { category } = this.context
     this.props.onUpdateTodoHandler({ id: this.props.id, text: this.props.text, complete: event.target.checked, category: { category} })
   }
+
   render() {
     return (
       <div className="todo">
@@ -36,4 +37,11 @@ export default class Todo extends Component {
       </div>
     )
   }
+}
+
+Todo.propTypes = {
+  onUpdateTodoHandler: PropTypes.func,
+  id: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  complete: PropTypes.bool.isRequired,
 }

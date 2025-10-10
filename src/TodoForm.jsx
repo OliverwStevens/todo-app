@@ -1,14 +1,17 @@
-import React, { Component } from "react";
-import "./App.css";
-import CategoryBtn from "./CategoryBtn";
-import { v4 as uuidv4 } from "uuid";
-
+import React, { Component } from "react"
+import "./App.css"
+import CategoryBtn from "./CategoryBtn"
+import { v4 as uuidv4 } from "uuid"
+import GlobalContext from "./GlobalContext"
+import PropTypes from "prop-types"
 export default class TodoForm extends Component {
+  static contextType = GlobalContext
+
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       formData: { id: "", text: "", complete: false, category: "" }
-    };
+    }
   }
 
   textChangeHandler = (event) => {
@@ -17,8 +20,8 @@ export default class TodoForm extends Component {
         ...prevState.formData,
         text: event.target.value
       }
-    }));
-  };
+    }))
+  }
 
   categoryChangeHandler = (category) => {
     this.setState(prevState => ({
@@ -30,16 +33,17 @@ export default class TodoForm extends Component {
   }
 
   addTodo = async () => {
+    const { category } = this.context
+
     const newTodo = {
       ...this.state.formData,
       id: uuidv4(),
       complete: false,
-      category: this.props.category || this.state.formData.category
+      category: category || this.state.formData.category
     }
 
-    if (this.props.onAddTodo) {
-      await this.props.onAddTodo(newTodo);
-    }
+    await this.props.onAddTodo(newTodo)
+
 
     // Reset the form
     this.setState({
@@ -67,6 +71,10 @@ export default class TodoForm extends Component {
           </button>
         </div>
       </form>
-    );
+    )
   }
+}
+
+TodoForm.propTypes = {
+  onAddTodo: PropTypes.func.isRequired
 }

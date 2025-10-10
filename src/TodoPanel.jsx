@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import Todo from "./Todo";
+import React, { Component } from "react"
+import Todo from "./Todo"
+import PropTypes from "prop-types"
 
 export default class TodoPanel extends Component {
   render() {
@@ -13,7 +14,12 @@ export default class TodoPanel extends Component {
             ))}
         </div>
       </div>
-    );
+    )
     
   }
+}
+
+TodoPanel.propTypes = {
+  todos: PropTypes.object.isRequired,
+  onUpdateTodoHandler: PropTypes.func.isRequired
 }

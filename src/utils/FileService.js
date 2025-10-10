@@ -34,10 +34,10 @@ class FileService {
 
   static async updateData(newItem) {
     // Read existing data
-    const existingData = await FileService.readData();
+    const existingData = await FileService.readData()
   
     // Find index of the item with the same id
-    const index = existingData.findIndex(todo => todo.id === newItem.id);
+    const index = existingData.findIndex(todo => todo.id === newItem.id)
   
     if (index !== -1) {
       // Replace the old item with the new one
@@ -46,7 +46,7 @@ class FileService {
       // Write the updated data back to file
       await FileService._saveData(existingData)
     } else {
-      console.error(`Item with id ${newItem.id} not found`);
+      console.error(`Item with id ${newItem.id} not found`)
     }
   }
   
