@@ -39,7 +39,7 @@ export default class TodoForm extends Component {
       ...this.state.formData,
       id: uuidv4(),
       complete: false,
-      category: category || this.state.formData.category
+      category: category
     }
 
     await this.props.onAddTodo(newTodo)

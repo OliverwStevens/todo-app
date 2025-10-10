@@ -59,5 +59,31 @@ describe('App', () => {
     const updatedTodo = FileService.updateData.mock.calls[0][0]
     expect(updatedTodo.complete).toBe(true)
   })
+
+  it('lets me clear the completed todos of a category', async () => {
+    const user = userEvent.setup()
+  
+    const todos = [
+      { id: 1, text: "Complete", category: "Workplace", complete: true },
+      { id: 2, text: "Incomplete", category: "Workplace", complete: false }
+    ]
+  
+    FileService.readData.mockResolvedValueOnce(todos)
+    render(<App />)
+  
+    expect(await screen.findByText('Complete')).toBeInTheDocument()
+    expect(await screen.findByText('Incomplete')).toBeInTheDocument()
+
+    const clearBtn = screen.getByTestId('clear-btn')
+    await user.click(clearBtn)
+  
+    expect(FileService.clearCompletedTodos).toHaveBeenCalledTimes(1)
+    expect(FileService.clearCompletedTodos).toHaveBeenCalledWith("Workplace")
+
+    // expect(await screen.findByText('Incomplete')).toBeInTheDocument()
+    // expect(await screen.findByText('Complete')).not.toBeInTheDocument()
+
+  })
+  
   
 })

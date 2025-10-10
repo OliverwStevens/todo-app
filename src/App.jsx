@@ -38,6 +38,13 @@ export default class App extends Component {
     const updated = await FileService.readData()
     this.setState({ todos: updated })
   }
+
+  handleClearTodos = async () => {
+    await FileService.clearCompletedTodos(this.state.category)
+    const updated = await FileService.readData()
+    this.setState({ todos: updated })
+  }
+
   
 
   render() {
@@ -49,7 +56,7 @@ export default class App extends Component {
         }}
       >
         <main className="app">
-          <Header />
+          <Header handleClearTodos={this.handleClearTodos.bind(this)}/>
           {/* Pass todos + category */}
           <TodoPanel todos={this.state.todos} onUpdateTodoHandler={this.handledUpdateTodo.bind(this)} />
           {/* Give form a callback */}

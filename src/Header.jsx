@@ -3,6 +3,8 @@ import "./App.css"
 import "./CheckBox.css"
 import CategoryBtn from "./CategoryBtn"
 import GlobalContext from "./GlobalContext"
+import ClearBtn from "./ClearBtn"
+import PropTypes from "prop-types"
 
 export default class Header extends Component {
   static contextType = GlobalContext
@@ -16,9 +18,12 @@ export default class Header extends Component {
         </div>
         <div className="content-header__aside">
           <CategoryBtn/>
-          <button className="btn">Clear Complete</button>
+          <ClearBtn handleClick={this.props.handleClearTodos}/>
         </div>
       </header>
     )
   }
+}
+Header.propTypes = {
+  handleClearTodos: PropTypes.func.isRequired
 }

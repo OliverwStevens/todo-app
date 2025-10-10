@@ -9,7 +9,7 @@ export default class Todo extends Component {
 
   changeHandler(event) {
     const { category } = this.context
-    this.props.onUpdateTodoHandler({ id: this.props.id, text: this.props.text, complete: event.target.checked, category: { category} })
+    this.props.onUpdateTodoHandler({ id: this.props.id, text: this.props.text, complete: event.target.checked, category: category })
   }
 
   render() {

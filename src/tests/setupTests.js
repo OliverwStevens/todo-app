@@ -7,6 +7,7 @@ vi.mock('../utils/fileService', () => ({
     readData: vi.fn().mockResolvedValue([]),
     addTodo: vi.fn(),
     updateData: vi.fn(),
+    clearCompletedTodos: vi.fn()
   }
 }))
 

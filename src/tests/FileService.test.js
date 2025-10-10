@@ -96,5 +96,36 @@ describe("FileService", () => {
   
     expect(mockClose).toHaveBeenCalled()
   })
+
+  it('should clear the completed todos of the specified category', async () => {
+    const existingData = [
+      { id: 1, text: "complete todo", complete: true, category: "Workplace" },
+      { id: 2, text: "incomplete todo", complete: false, category: "Workplace" },
+      { id: 3, text: "complete todo", complete: true, category: "Home" }
+    ]
+
+    readFile.mockResolvedValueOnce(new TextEncoder().encode(JSON.stringify(existingData)))
+
+
+    const mockWrite = vi.fn()
+    const mockClose = vi.fn()
+    create.mockResolvedValueOnce({ write: mockWrite, close: mockClose })
+
+    await FileService.clearCompletedTodos('Workplace')
+
+    expect(create).toHaveBeenCalledWith("data.json", { baseDir: "mockBaseDir" })
+    expect(mockWrite).toHaveBeenCalledTimes(1)
+  
+    // 🔍 Verify actual content written
+    const writtenArg = mockWrite.mock.calls[0][0]
+    const decoded = new TextDecoder().decode(writtenArg)
+    expect(JSON.parse(decoded)).toEqual([
+      { id: 2, text: "incomplete todo", complete: false, category: "Workplace" },
+      { id: 3, text: "complete todo", complete: true, category: "Home" }
+    ])
+  
+    expect(mockClose).toHaveBeenCalled()
+
+  })
   
 })

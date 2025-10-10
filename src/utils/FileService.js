@@ -21,6 +21,7 @@ class FileService {
 
   static async addTodo(newItem) {
     const existingData = await FileService.readData()
+    console.log("here newbie", newItem)
     existingData.push(newItem)
 
     await FileService._saveData(existingData)
@@ -48,6 +49,14 @@ class FileService {
     } else {
       console.error(`Item with id ${newItem.id} not found`)
     }
+  }
+
+  static async clearCompletedTodos(category) {
+    const existingData = await FileService.readData()
+
+    const remainingTodos = existingData.filter(todo => todo.category !== category || !todo.complete)
+
+    await FileService._saveData(remainingTodos)
   }
   
 }
