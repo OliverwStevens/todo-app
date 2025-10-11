@@ -6,8 +6,8 @@ import TodoForm from "./TodoForm.jsx"
 import GlobalContext from "./GlobalContext"
 import TodoPanel from "./TodoPanel.jsx"
 import FileService from "./utils/fileService"
-import { register } from '@tauri-apps/plugin-global-shortcut'
-
+import { register, unregisterAll } from '@tauri-apps/plugin-global-shortcut'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -22,16 +22,25 @@ export default class App extends Component {
     this.setState({ todos: data })
 
     try {
-      await register('Control+Alt+N', () => {
-        console.log('Shortcut triggered Windows')
-      })
+      await unregisterAll()
 
-      await register('Command+Option+N', () => {
-        console.log('Shortcut triggered Mac')
+      const win = getCurrentWindow()
+  
+      await register('Control+Alt+N', async () => {
+        await win.setFocus()
       })
-    } catch(error) {
+  
+      await register('Command+Option+N', async () => {
+        await win.setFocus()
+      })
+    } catch (error) {
       console.error('Failed to register shortcut:', error)
     }
+  }
+
+  componentWillUnmount() {
+    // Clean up when component unmounts
+    unregisterAll()
   }
 
 

@@ -4,11 +4,16 @@ import CategoryBtn from "./CategoryBtn"
 import { v4 as uuidv4 } from "uuid"
 import GlobalContext from "./GlobalContext"
 import PropTypes from "prop-types"
+import { getCurrentWindow } from '@tauri-apps/api/window'
+
 export default class TodoForm extends Component {
   static contextType = GlobalContext
 
   constructor(props) {
     super(props)
+    this.inputRef = React.createRef()
+    this.unlisten = null
+
     this.state = {
       formData: { id: "", text: "", complete: false, category: "" }
     }
@@ -51,6 +56,24 @@ export default class TodoForm extends Component {
     })
   }
 
+  async componentDidMount() {
+    const win = getCurrentWindow()
+
+    this.unlisten = await win.listen('tauri://focus', () => {
+      setTimeout(() => {
+        if (this.inputRef.current) {
+          this.inputRef.current.focus()
+        }
+      }, 100)
+    })
+  }
+
+  componentWillUnmount() {
+    if (this.unlisten) {
+      this.unlisten()
+    }
+  }
+
   render() {
     return (
       <form
@@ -60,6 +83,7 @@ export default class TodoForm extends Component {
       >
         <div className="todo">
           <input
+            ref={this.inputRef}
             placeholder="Add todo..."
             autoFocus
             value={this.state.formData.text}
