@@ -27,10 +27,14 @@ export default class App extends Component {
       const win = getCurrentWindow()
   
       await register('Control+Alt+N', async () => {
+        await win.unminimize()
+
         await win.setFocus()
       })
   
       await register('Command+Option+N', async () => {
+        await win.unminimize()
+
         await win.setFocus()
       })
     } catch (error) {
