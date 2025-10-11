@@ -28,7 +28,7 @@ describe('App', () => {
     // Override default mocks for this test
     FileService.readData
       .mockResolvedValueOnce([]) // initial
-      .mockResolvedValueOnce([{ text: 'Finish testing' }]) // after save
+      .mockResolvedValueOnce([{ id: 1, text: "Finish testing", category: "Workplace", complete: false }]) // after save
 
     render(<App />)
 
