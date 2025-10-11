@@ -3,13 +3,13 @@
   display: grid;
   grid-template-rows: auto 1fr .25fr;
   height: 100vh;
+  background-color: var(--op-color-primary-plus-three);
 }
 .content-header {
-  background-color: red;
+  background-color: var(--op-color-alerts-danger-minus-one);
   padding: var(--op-space-large);
 }
 .todo-panel {
-  background-color: blue;
 
   overflow: hidden;
   height: 100%;
@@ -28,10 +28,12 @@
 }
 
 .todo-form {
-  background-color: pink;
+  background-color: var(--op-color-primary-minus-one);
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top-left-radius: var(--op-radius-x-large);
+  border-top-right-radius: var(--op-radius-x-large);
 }
 
 .todo {
